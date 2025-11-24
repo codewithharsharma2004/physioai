@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Physio - Welcome</title>
+    <link rel="stylesheet" href="intro-style.css" />
+</head>
+<body>
+    <!-- Background Video -->
+    <video id="backgroundVideo" class="background-video" autoplay muted loop playsinline>
+        <source src="video/background.mp4" type="video/mp4">
+    </video>
+    
+    <!-- Video Overlay for better text readability -->
+    <div class="video-overlay"></div>
+    
+    <div class="intro-container">
+        <div class="intro-content">
+            <div class="logo-section">
+                <div class="image-container">
+                    <img src="images/You can do anything!.jpg" alt="AI Physio" class="kevin-image">
+                </div>
+                <h1 class="main-title">AI Physio</h1>
+                <div class="subtitle-line"></div>
+                <p class="tagline">Your Personal AI-Powered Physiotherapy Assistant</p>
+            </div>
+
+            <div class="description-section">
+                <div class="description-card">
+                    <h2>What is AI Physio?</h2>
+                    <p>
+                        AI Physio is an innovative web-based application that uses advanced artificial intelligence 
+                        and computer vision to provide real-time guidance for physiotherapy exercises. 
+                        Using TensorFlow.js and MoveNet pose detection, our AI analyzes your movements 
+                        and provides instant, personalized feedback to help you perform exercises correctly.
+                    </p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Real-Time Analysis</h3>
+                        <p>Get instant feedback on your posture and movement accuracy as you exercise</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">💡</div>
+                        <h3>Personalized Guidance</h3>
+                        <p>Receive specific, actionable instructions tailored to your performance</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Exercise Library</h3>
+                        <p>Access multiple physiotherapy exercises including neck, shoulder, knee, hip, and ankle movements</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🏠</div>
+                        <h3>Home-Based Therapy</h3>
+                        <p>Perform guided exercises from the comfort of your home with just your webcam</p>
+                    </div>
+                </div>
+
+                <div class="instructions-section">
+                    <h3>How It Works</h3>
+                    <ol class="instructions-list">
+                        <li>Allow camera access when prompted</li>
+                        <li>Select an exercise from the menu</li>
+                        <li>Position yourself in front of your camera</li>
+                        <li>Follow the on-screen guidance and demo image</li>
+                        <li>Receive real-time feedback to perfect your form</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <a href="app.html" class="start-button">
+                    <span>Get Started</span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    
+    <script>
+        // Ensure video plays smoothly
+        const backgroundVideo = document.getElementById('backgroundVideo');
+        
+        // Handle video loading
+        backgroundVideo.addEventListener('loadeddata', () => {
+            console.log('Background video loaded');
+        });
+        
+        // Handle errors
+        backgroundVideo.addEventListener('error', (e) => {
+            console.error('Background video error:', e);
+            // Fallback to black background if video fails
+            document.querySelector('.video-overlay').style.background = 'rgba(0, 0, 0, 0.9)';
+        });
+        
+        // Ensure video plays (autoplay with muted should work)
+        backgroundVideo.play().catch(error => {
+            console.log('Video autoplay prevented:', error);
+        });
+    </script>
+</body>
+</html>

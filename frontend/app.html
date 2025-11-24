@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Powered Physio</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- TensorFlow & Pose Detection -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.20.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
+</head>
+<body>
+    <div class="container">
+
+        <!-- EXERCISE LIST -->
+        <div class="sidebar">
+            <h2>Choose<br>Exercise</h2>
+            <div id="exerciseList"></div>
+        </div>
+
+        <!-- LIVE CAMERA -->
+        <div class="camera-box">
+            <video id="webcam" autoplay playsinline></video>
+            <canvas id="output"></canvas>
+            <p id="feedback">Start exercise to receive feedback...</p>
+        </div>
+
+        <!-- IMAGE DEMO -->
+        <div class="demo-box">
+            <h2>Exercise Demo</h2>
+            <img id="exerciseImage" class="exercise-img" src="" alt="Exercise Demo">
+            <p id="exerciseDescription"></p>
+        </div>
+
+    </div>
+
+    <script src="exercises.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+

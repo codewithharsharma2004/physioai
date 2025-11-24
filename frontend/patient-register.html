@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Register - AI Physio</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #111; color: #fff; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .auth-card { background: #1c1c1c; padding: 40px; border-radius: 16px; width: 100%; max-width: 420px; box-shadow: 0 15px 40px rgba(0,0,0,0.45); }
+        h1 { text-align: center; margin-bottom: 30px; }
+        label { display: block; margin-bottom: 6px; color: #ccc; }
+        input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #111; color: #fff; margin-bottom: 16px; }
+        input:focus { outline: none; border-color: #00bfff; }
+        .btn { width: 100%; border: none; border-radius: 8px; padding: 12px; background: #00bfff; color: #fff; font-size: 16px; cursor: pointer; transition: 0.2s; }
+        .btn:hover { background: #0099cc; }
+        .btn:disabled { background: #555; cursor: not-allowed; }
+        .switch { text-align: center; margin-top: 16px; color: #aaa; }
+        .switch a { color: #00bfff; text-decoration: none; }
+        .switch a:hover { text-decoration: underline; }
+        .error { display: none; background: rgba(255,0,0,0.18); color: #ff8f8f; padding: 10px; border-radius: 8px; margin-bottom: 16px; }
+        .error.show { display: block; }
+        .back { position: absolute; top: 24px; left: 24px; color: #00bfff; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <a href="intro.html" class="back">← Home</a>
+    <div class="auth-card">
+        <h1>Create Patient Account</h1>
+        <div id="error" class="error"></div>
+        <form id="registerForm">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" minlength="6" required>
+            <button class="btn" id="registerBtn" type="submit">Register</button>
+        </form>
+        <div class="switch">Already registered? <a href="patient-login.html">Login</a></div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+        const form = document.getElementById('registerForm');
+        const errorBox = document.getElementById('error');
+        const registerBtn = document.getElementById('registerBtn');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+
+        const showError = (msg) => {
+            errorBox.textContent = msg;
+            errorBox.classList.add('show');
+            setTimeout(() => errorBox.classList.remove('show'), 4000);
+        };
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            registerBtn.disabled = true;
+            registerBtn.textContent = 'Registering...';
+            try {
+                const res = await fetch(`${API_URL}/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: nameInput.value.trim(),
+                        email: emailInput.value.trim(),
+                        password: passwordInput.value,
+                        role: 'patient'
+                    })
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Registration failed');
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('userRole', data.user.role);
+                localStorage.setItem('userId', data.user.id);
+                localStorage.setItem('userName', data.user.name);
+                window.location.href = 'patient-dashboard.html';
+            } catch (err) {
+                showError(err.message);
+                registerBtn.disabled = false;
+                registerBtn.textContent = 'Register';
+            }
+        });
+    </script>
+</body>
+</html>
