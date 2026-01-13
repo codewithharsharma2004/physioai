@@ -23,8 +23,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../frontend')));
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/physioai';
-const JWT_SECRET = process.env.JWT_SECRET || 'change-this-secret';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://sharmaharshengineer_db_user:DaPn6iqRziFr3CRY@cluster0.rhswbxt.mongodb.net/';
+const JWT_SECRET = process.env.JWT_SECRET || '9e399f7c97216aae5bae7d2eae44e2a1190ca4017571dd8feaf470274307613c';
 const PORT = process.env.PORT || 3000;
 
 mongoose.connect(MONGODB_URI).then(() => {
